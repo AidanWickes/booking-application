@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import NavLinks from "./_components/nav-links";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,15 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             Campus Bookings
           </Link>
           <nav aria-label="Main" className="flex gap-4">
-            <Link href="/" className="hover:underline">
-              Home
-            </Link>
-            <Link href="/resources" className="hover:underline">
-              Resources
-            </Link>
-            <Link href="/bookings" className="hover:underline">
-              My bookings
-            </Link>
+            <NavLinks />
           </nav>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 p-6">{children}</main>
