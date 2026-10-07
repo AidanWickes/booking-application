@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Campus Bookings
 
-## Getting Started
+Book study rooms, IT kit and sports facilities at South Devon College. Tutor demo project for SOUD2528 Full Stack Development.
 
-First, run the development server:
+Next.js 16 (App Router) · React 19 · Tailwind CSS 4 (via PostCSS) · TypeScript.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+echo 'SECRET_MESSAGE="only the server knows"' > .env.local   # used by /boundary; git-ignored
+npm run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Production build (also type-checks) |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Restart `npm run dev` after changing `next.config.ts`, `postcss.config.mjs`, `.env.local` or installed packages. If it then fails with `Cannot find module`, stop it, delete `.next/dev/cache/turbopack` and start it again.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things live
 
-## Learn More
+```
+app/
+├─ layout.tsx            header, nav, footer, fonts, title template
+├─ globals.css           theme tokens (colours, font) and the period-grid utility
+├─ icon.svg              favicon / brand mark
+├─ page.tsx              /
+├─ not-found.tsx         404
+├─ _components/          shared components (not routes)
+│  ├─ nav-links.tsx      client component, highlights the current page
+│  └─ resource-card.tsx
+├─ resources/            /resources and /resources/[id]
+├─ bookings/             /bookings
+└─ boundary/             /boundary (server vs client demo)
+lib/resources.ts         Resource type, sample data, getResource()
+```
 
-To learn more about Next.js, take a look at the following resources:
+Folders starting with `_` are private in the App Router, so they never become routes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Theme
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Colours are Tailwind tokens defined in `app/globals.css` (`bg-ink`, `text-ink-soft`, `bg-room`, `bg-equipment`, `bg-sport`, …). Give an element `data-type="room" | "equipment" | "sport"` and use `bg-(--block)` / `text-(--on-block)` to colour it by resource type.
 
-## Deploy on Vercel
+## Branches
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`main` matches the students' code at the end of Session 2 (see `AGENTS.md`). Theme work lives on `feature/theme`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16 differs from older versions: check `node_modules/next/dist/docs/` before writing code.
