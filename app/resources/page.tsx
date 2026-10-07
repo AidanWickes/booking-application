@@ -1,3 +1,4 @@
+import ResourceCard from './resource-card'
 import { resources } from '@/lib/resources'
 
 export const metadata = {
@@ -6,10 +7,13 @@ export const metadata = {
 
 export default function ResourcesPage() {
   return (
-    <ul>
-      {resources.map((r) => (
-        <li key={r.id}>{r.name}</li>
-      ))}
-    </ul>
+    <>
+      <h1 className="mb-6 text-3xl font-bold">Resources</h1>
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {resources.map((r) => (
+          <ResourceCard key={r.id} resource={r} popular={r.capacity > 20} />
+        ))}
+      </section>
+    </>
   )
 }
