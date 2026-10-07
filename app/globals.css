@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-ink: #22223b;
+  --color-ink-soft: #4a4a68;
+  --color-paper: #ffffff;
+  --color-rule: #e4e4ec;
+  --color-rule-strong: #b9b9c9;
+  --color-room: #4a6fa5;
+  --color-equipment: #e0a458;
+  --color-sport: #7fb685;
+}
+
+:root {
+  color-scheme: light;
+  scrollbar-color: var(--color-ink-soft) var(--color-rule);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-equipment);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* One colour per kind of resource, everywhere: the timetable key. */
+[data-type="room"] {
+  --block: var(--color-room);
+  --on-block: #ffffff;
+}
+[data-type="equipment"] {
+  --block: var(--color-equipment);
+  --on-block: var(--color-ink);
+}
+[data-type="sport"] {
+  --block: var(--color-sport);
+  --on-block: var(--color-ink);
+}
+
+/* Faint period rules behind blocks, like a printed timetable.
+   One period is 2rem: blocks, gaps and padding are whole periods so every edge lands on a rule. */
+@utility period-grid {
+  background-image: linear-gradient(to bottom, var(--color-rule) 1px, transparent 1px);
+  background-size: 100% 2rem;
+  background-position: 0 0;
 }

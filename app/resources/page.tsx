@@ -8,8 +8,8 @@ export const metadata = {
 export default function ResourcesPage() {
   return (
     <>
-      <h1 className="mb-6 text-3xl font-bold">Resources</h1>
-      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <h1 className="mb-6 text-4xl font-bold tracking-tight">Resources</h1>
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8 sm:rounded-md sm:border sm:border-rule sm:p-8 sm:period-grid lg:grid-cols-3">
         {resources.map((r) => (
           <ResourceCard key={r.id} resource={r} popular={r.capacity > 20} />
         ))}

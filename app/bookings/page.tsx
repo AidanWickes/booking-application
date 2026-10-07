@@ -5,8 +5,10 @@ export const metadata = {
 export default function BookingsPage() {
   return (
     <>
-      <h1 className="text-3xl font-bold">My bookings</h1>
-      <p className="mt-4">No bookings yet.</p>
+      <h1 className="text-4xl font-bold tracking-tight">My bookings</h1>
+      <p className="period-grid mt-6 rounded-md border-2 border-dashed border-rule-strong px-6 py-16 text-center text-lg font-semibold text-ink-soft">
+        No bookings yet.
+      </p>
     </>
   )
 }

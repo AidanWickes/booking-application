@@ -15,7 +15,7 @@ export default function NavLinks() {
       key={href}
       href={href}
       aria-current={pathname === href ? 'page' : undefined}
-      className="hover:underline aria-[current=page]:font-bold"
+      className="rounded-sm px-3 py-1.5 font-semibold text-white/90 transition-colors duration-150 ease-out hover:bg-white/10 hover:text-white focus-visible:outline-equipment aria-[current=page]:bg-white aria-[current=page]:text-ink"
     >
       {label}
     </Link>
