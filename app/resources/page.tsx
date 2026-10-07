@@ -1,9 +1,9 @@
-import ResourceCard from './resource-card'
-import { resources } from '@/lib/resources'
+import ResourceCard from "../_components/resource-card";
+import { resources } from "@/lib/resources";
 
 export const metadata = {
-  title: 'Resources',
-}
+  title: "Resources",
+};
 
 export default function ResourcesPage() {
   return (
@@ -15,5 +15,5 @@ export default function ResourcesPage() {
         ))}
       </section>
     </>
-  )
+  );
 }
