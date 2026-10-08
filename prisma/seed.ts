@@ -13,6 +13,37 @@ async function main() {
       { slug: "court", name: "Sports Hall", type: "sport", capacity: 30 },
     ],
   });
+  const g12 = await prisma.resource.findUniqueOrThrow({
+    where: { slug: "g12" },
+  });
+
+  await prisma.user.create({
+    data: {
+      email: "amy@example.ac.uk",
+      name: "Amy Student",
+      bookings: {
+        create: {
+          resourceId: g12.id,
+          startsAt: new Date("2026-10-06T10:00:00Z"),
+          endsAt: new Date("2026-10-06T11:00:00Z"),
+        },
+      },
+    },
+  });
+  await prisma.user.create({
+    data: {
+      email: "aidan@example.ac.uk",
+      name: "Aidan Admin",
+      role: "admin",
+      bookings: {
+        create: {
+          resourceId: g12.id,
+          startsAt: new Date("2026-10-06T11:00:00Z"),
+          endsAt: new Date("2026-10-06T12:00:00Z"),
+        },
+      },
+    },
+  });
 }
 
 main().finally(() => prisma.$disconnect());
