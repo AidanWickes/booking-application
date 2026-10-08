@@ -549,6 +549,7 @@ npx prisma init --datasource-provider postgresql --output ../app/generated/prism
 Notes for anything touching Session 3+:
 - Pin Prisma to `@7` (`prisma@latest` is the 8.0 release candidate; `@prisma/client` latest is 7.10.0). Prisma 7 needs Node `^20.19 || ^22.12 || >=24`.
 - Prisma 7.10's `init` writes `prisma7.config.ts`, and installs AI skill folders unless you pass `--no-skills`.
+- With the local `npx prisma dev` server, set `shadowDatabaseUrl: process.env["SHADOW_DATABASE_URL"]` in the config's `datasource`. Without it, the second `migrate dev` fails with `type "ResourceType" already exists`, because the auto-created shadow database is copied from `template1`, which is where the data lives. See README "Troubleshooting".
 - Resource ids in the database are integers; the Session 2 string ids (`g12`, …) become the `slug` column so `/resources/g12` URLs keep working.
 
 ## Gold tiers (only if the tutor asks)

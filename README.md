@@ -21,6 +21,37 @@ npm run dev   # http://localhost:3000
 
 Restart `npm run dev` after changing `next.config.ts`, `postcss.config.mjs`, `.env.local` or installed packages. If it then fails with `Cannot find module`, stop it, delete `.next/dev/cache/turbopack` and start it again.
 
+## Troubleshooting
+
+### `prisma migrate dev` fails with `ERROR: type "ResourceType" already exists`
+
+**Symptom.** The first migration (`init`) applied fine. The next `npx prisma migrate dev --name add_bookings` stops with `type "ResourceType" already exists`, even though `npx prisma migrate status` says the database is up to date.
+
+**Cause.** `migrate dev` replays every migration into a scratch *shadow database* to check the history before applying anything new. The local `npx prisma dev` server gives you two connection strings in `.env`:
+
+- `DATABASE_URL`: the main database (port 51214)
+- `SHADOW_DATABASE_URL`: a separate server for the shadow database (port 51215)
+
+Both point at a database called `template1`. `prisma7.config.ts` only passed `DATABASE_URL`, so Prisma made its own shadow database on the main server with `CREATE DATABASE`. Postgres builds every new database as a copy of `template1`. Our real data lives in `template1`, so the "empty" shadow already held the `ResourceType` enum from `init`. Replaying `init` into it then failed.
+
+**Fix.** Give Prisma the dedicated shadow server in `prisma7.config.ts`:
+
+```ts
+datasource: {
+  url: process.env["DATABASE_URL"],
+  shadowDatabaseUrl: process.env["SHADOW_DATABASE_URL"],
+},
+```
+
+Then rerun:
+
+```bash
+npx prisma migrate dev --name add_bookings
+npx prisma generate
+```
+
+**Don't** fix this by deleting the `init` migration, editing its SQL, or running `prisma migrate reset`. The migration history was never wrong, and a reset wipes the data.
+
 ## Where things live
 
 ```
