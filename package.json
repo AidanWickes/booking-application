@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db": "npx prisma dev",
+    "develop": "concurrently \"npm run dev\" \"npm run db\""
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",
@@ -20,6 +22,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^10.0.6",
     "dotenv": "^18.0.6",
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
