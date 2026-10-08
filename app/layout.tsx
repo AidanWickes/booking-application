@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import NavLinks from "./_components/nav-links";
 import "./globals.css";
 
-const atkinson = Atkinson_Hyperlegible_Next({
+// Self-hosted (latin subset, variable weight) so next/font can measure the file for a
+// size-matched fallback; next/font/google has no metrics for this family under Turbopack.
+const atkinson = localFont({
+  src: "./fonts/AtkinsonHyperlegibleNext-latin.woff2",
+  weight: "200 800",
   variable: "--font-atkinson",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
