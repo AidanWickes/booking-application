@@ -13,13 +13,15 @@ datasource db {
 }
 
 model Resource {
-  id        Int          @id @default(autoincrement())
-  slug      String       @unique
-  name      String
-  type      ResourceType
-  capacity  Int
-  createdAt DateTime     @default(now())
-  bookings  Booking[]
+  id         Int          @id @default(autoincrement())
+  slug       String       @unique
+  name       String
+  type       ResourceType
+  capacity   Int
+  building   Building     @relation(fields: [buildingId], references: [id])
+  buildingId Int
+  createdAt  DateTime     @default(now())
+  bookings   Booking[]
 }
 
 model User {
@@ -41,6 +43,13 @@ model Booking {
   createdAt  DateTime @default(now())
 
   @@index([resourceId, startsAt])
+}
+
+model Building {
+  id        Int        @id @default(autoincrement())
+  slug      String     @unique
+  name      String
+  resources Resource[]
 }
 
 enum ResourceType {
